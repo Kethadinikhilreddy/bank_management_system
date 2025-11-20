@@ -1,0 +1,41 @@
+CREATE DATABASE IF NOT EXISTS bank_management_system;
+USE bank_management_system;
+
+-- Table: admin_details
+CREATE TABLE admin_details (
+    AdminId INT AUTO_INCREMENT PRIMARY KEY,
+    AdminEmailId VARCHAR(45) UNIQUE,
+    AdminPassword VARCHAR(45)
+);
+
+-- Table: bank_customer_details
+CREATE TABLE bank_customer_details (
+    Customer_Id INT AUTO_INCREMENT PRIMARY KEY,
+    Customer_Name VARCHAR(45),
+    Customer_MobileNumber BIGINT UNIQUE,
+    Customer_AadharNumber BIGINT UNIQUE,
+    Customer_PanNumber VARCHAR(10) UNIQUE,
+    Customer_EmailId VARCHAR(45) UNIQUE,
+    Customer_Address VARCHAR(100),
+    Customer_Designation VARCHAR(45),
+    Customer_AccountNumber BIGINT UNIQUE,
+    Customer_Pin INT,    -- NOT UNIQUE
+    IfscCode VARCHAR(45),
+    Branch VARCHAR(45),
+    TypeOfAccount VARCHAR(45),
+    Amount DOUBLE,
+    Gender VARCHAR(10)
+);
+
+-- Table: transaction_details
+CREATE TABLE transaction_details (
+    TransactionId INT AUTO_INCREMENT PRIMARY KEY,
+    TransactionDate DATE,
+    TransactionTime TIME,
+    TransactionType VARCHAR(45),
+    TransactionAmount DOUBLE,
+    Balance DOUBLE,
+    AccountNumber BIGINT,
+    FOREIGN KEY (AccountNumber) REFERENCES bank_customer_details(Customer_AccountNumber)
+        ON DELETE CASCADE
+);
